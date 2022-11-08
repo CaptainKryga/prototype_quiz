@@ -47,10 +47,9 @@ namespace Model.Level
             
             if (isRestart)
             {
-                GameMetrics.IndexNow = -1;//IndexEnd + 1;
+                GameMetrics.IndexNow = 0;//IndexEnd + 1;
                 GameMetrics.IndexEnd = Data.Length;// Random.Range(0, Data.Length);
                 ScoreController.Score = 0;
-                GameMetrics.SetNextTurn(Data, GameSettings);
             }
             
             if (GameMetrics.IndexNow == GameMetrics.IndexEnd || GameMetrics.IndexNow >= Data.Length)

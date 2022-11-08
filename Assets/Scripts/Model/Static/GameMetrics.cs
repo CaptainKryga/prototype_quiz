@@ -9,9 +9,11 @@ namespace Model.Static
         
         public static bool SetNextTurn(string[] data, GameSettings gameSettings)
         {
-            for (int x = IndexNow + 1; x < data.Length; x++)
+            for (int x = IndexNow; x < data.Length;)
             {
-                if (x == IndexEnd)
+                x++;
+                
+                if (x >= IndexEnd)
                     return true;
 
                 if (data[x].Length >= gameSettings.MinWordLength)

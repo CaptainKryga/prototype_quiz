@@ -25,7 +25,6 @@ namespace Model.Components
 
         private void ChangeKeyStatus(KeyCode key, bool isClick)
         {
-            Debug.Log("FF");
             if (!isClick && key == _key)
             {
                 _btn.interactable = false;
