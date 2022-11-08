@@ -5,7 +5,7 @@ namespace Model.Static
     public static class GameMetrics
     {
         public static int IndexNow, IndexEnd, Tries;
-        public static string ValidKeys = "QWERTYUIOPASDFGHJKLZXCVBNM", Word;
+        public static string ValidKeys = "QWERTYUIOPASDFGHJKLZXCVBNM", UseKeys, Word;
         
         public static bool SetNextTurn(string[] data, GameSettings gameSettings)
         {

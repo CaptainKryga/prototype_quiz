@@ -57,6 +57,8 @@ namespace Model.Level
                 ModelController.Restart(GameTypes.Menu.EndGame);
                 return;
             }
+
+            GameMetrics.UseKeys = "";
             
             GameMetrics.Tries = GameSettings.DefaultTries;
             TriesUI.SetText("Tries: " + GameMetrics.Tries);
@@ -72,8 +74,9 @@ namespace Model.Level
 
             string k = key.ToString();
             
-            if (!GameMetrics.ValidKeys.Contains(k))
+            if (!GameMetrics.ValidKeys.Contains(k) || GameMetrics.UseKeys.Contains(k))
                 return;
+            GameMetrics.UseKeys += k;
             ClickKey_Action?.Invoke(key, false);
 
             if (!GameMetrics.Word.Contains(k))
