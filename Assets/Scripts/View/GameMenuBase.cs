@@ -1,12 +1,14 @@
 using Controller;
 using UnityEngine;
+using Utils;
 
 namespace View
 {
     public abstract class GameMenuBase : MonoBehaviour
     {
-        [SerializeField] protected ViewController ViewController;
+        [SerializeField] protected GlobalController GlobalController;
         [SerializeField] private GameObject _panelBase;
+        public GameTypes.Menu Type;
 
         //set active panel
         public void UsePanel(bool flag)
@@ -18,7 +20,7 @@ namespace View
         public void OnClick_Restart(bool isRestart)
         {
             UsePanel(false);
-            ViewController.Restart(isRestart);
+            GlobalController.Restart(isRestart);
         }
     }
 }
