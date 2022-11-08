@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Model
+namespace Model.File
 {
     public class ParserFile: MonoBehaviour
     {
@@ -10,6 +10,8 @@ namespace Model
         public string[] GetData(string path)
         {
             string res = Filter(_uploadFile.Upload(path));
+
+            res = res.ToUpper();
 
             return res.Split(' ');
         }

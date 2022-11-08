@@ -2,7 +2,7 @@
 using System.IO;
 using UnityEngine;
 
-namespace Model
+namespace Model.File
 {
     public class UploadFile: MonoBehaviour
     {
