@@ -6,7 +6,9 @@ namespace Scriptable
     public class GameSettings : ScriptableObject
     {
         public string PathInputFile;
+        [Min(1)]
         public int MinWordLength;
+        [Min(1)]
         public int DefaultTries;
     }
 }
