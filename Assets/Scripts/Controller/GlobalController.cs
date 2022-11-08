@@ -1,5 +1,4 @@
-﻿using System;
-using Model;
+﻿using Model;
 using UnityEngine;
 
 namespace Controller
@@ -11,6 +10,11 @@ namespace Controller
         private void Start()
         {
             _modelController.Setup();
+        }
+
+        public void Restart(bool isRestart)
+        {
+            _modelController.Restart(isRestart);
         }
     }
 }
