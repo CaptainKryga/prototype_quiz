@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: GameSettings
   m_EditorClassIdentifier: 
   PathInputFile: alice30.txt
-  MinWordLength: 1
+  MinWordLength: 5
   DefaultTries: 10
