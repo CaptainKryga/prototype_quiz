@@ -3,3 +3,4 @@
 *.cginc text
 *.shader text
 Assets/StreaminAssets/alice30.txt filter=lfs diff=lfs merge=lfs -text
+Assets/StreamingAssets/alice30.txt filter=lfs diff=lfs merge=lfs -text
