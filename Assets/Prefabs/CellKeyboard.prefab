@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 8847258805836222634}
   - component: {fileID: 8847258805836222633}
   m_Layer: 5
-  m_Name: Cell
+  m_Name: CellKeyboard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -270,7 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62ba04d779ab3df40bf3b009fba677a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _img: {fileID: 8847258805836222639}
-  _text: {fileID: 8847258805786786382}
+  Img: {fileID: 8847258805836222639}
+  Text: {fileID: 8847258805786786382}
+  Key: 0
   _btn: {fileID: 8847258805836222634}
-  _key: 97
