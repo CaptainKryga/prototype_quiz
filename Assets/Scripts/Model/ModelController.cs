@@ -20,6 +20,8 @@ namespace Model
         public void Setup()
         {
             GameMetrics.Data = _parser.GetData(_gameSettings.PathInputFile);
+            
+            
             _levelControllerBase.Setup(this, _gameSettings);
         }
 

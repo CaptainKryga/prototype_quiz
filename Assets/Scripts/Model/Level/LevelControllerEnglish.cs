@@ -48,6 +48,10 @@ namespace Model.Level
                 IndexNow = 0;//IndexEnd + 1;
                 IndexEnd = GameMetrics.Data.Length;// Random.Range(0, Data.Length);
                 ScoreController.Score = 0;
+                
+                if (GameMetrics.Data.Length > 0 && GameMetrics.Data[IndexNow].Length < GameSettings.MinWordLength &&
+                    SetNextTurn(GameMetrics.Data, GameSettings))
+                    ModelController.Restart(GameTypes.Menu.EndGame);
             }
             
             if (IndexNow == IndexEnd || IndexNow >= GameMetrics.Data.Length)

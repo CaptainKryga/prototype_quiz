@@ -5,23 +5,23 @@ namespace Model.Static
     public static class GameMetrics
     {
         public static string[] Data;
-        private static string ValidKeys = "QWERTYUIOPASDFGHJKLZXCVBNM";
-        private static string UseKeys;
+        private static string _validKeys = "QWERTYUIOPASDFGHJKLZXCVBNM";
+        private static string _useKeys;
 
         public static bool CheckValidKey(string key)
         {
-            if (!ValidKeys.Contains(key) || UseKeys.Contains(key))
+            if (!_validKeys.Contains(key) || _useKeys.Contains(key))
             {
                 return false;
             }
 
-            UseKeys += key;
+            _useKeys += key;
             return true;
         }
 
         public static void Restart()
         {
-            UseKeys = "";
+            _useKeys = "";
         }
     }
 }

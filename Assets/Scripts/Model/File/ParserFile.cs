@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Model.File
@@ -12,8 +13,14 @@ namespace Model.File
             string res = Filter(_uploadFile.Upload(path));
 
             res = res.ToUpper();
+            string[] temp = res.Split(' ');
 
-            return res.Split(' ');
+            List<string> result = new List<string>();
+            for (int x = 0; x < temp.Length; x++)
+                if (temp[x].Length > 0)
+                    result.Add(temp[x]);
+
+            return result.ToArray();
         }
 
         private string Filter(string file)
