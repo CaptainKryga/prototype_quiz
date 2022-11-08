@@ -8,6 +8,7 @@ namespace Model.Level
 {
     public class LevelControllerEnglish : LevelControllerBase
     {
+        private CellKeyboard[] _cells;
         private void OnEnable()
         {
             ClickKey_Action += OnClickAnyKey;
@@ -22,49 +23,47 @@ namespace Model.Level
 
         private void Start()
         {
-            CellKeyboard[] cells = FindObjectsOfType<CellKeyboard>();
-            foreach (var cell in cells)
+            _cells = FindObjectsOfType<CellKeyboard>();
+            foreach (var cell in _cells)
             {
                 cell.Setup(this);
             }
         }
 
-        public override void Setup(ModelController modelController, string[] data,
-            GameSettings gameSettings)
+        public override void Setup(ModelController modelController, GameSettings gameSettings)
         {
             ModelController = modelController;
-            Data = data;
             GameSettings = gameSettings;
         }
 
         public override void Restart(bool isRestart)
         {
-            CellKeyboard[] cells = FindObjectsOfType<CellKeyboard>();
-            foreach (CellKeyboard cell in cells)
+            foreach (CellKeyboard cell in _cells)
             {
                 cell.Restart();
             }
             
             if (isRestart)
             {
-                GameMetrics.IndexNow = 0;//IndexEnd + 1;
-                GameMetrics.IndexEnd = Data.Length;// Random.Range(0, Data.Length);
+                IndexNow = 0;//IndexEnd + 1;
+                IndexEnd = GameMetrics.Data.Length;// Random.Range(0, Data.Length);
                 ScoreController.Score = 0;
             }
             
-            if (GameMetrics.IndexNow == GameMetrics.IndexEnd || GameMetrics.IndexNow >= Data.Length)
+            if (IndexNow == IndexEnd || IndexNow >= GameMetrics.Data.Length)
             {
                 ModelController.Restart(GameTypes.Menu.EndGame);
                 return;
             }
 
-            GameMetrics.UseKeys = "";
+            GameMetrics.Restart();
             
-            GameMetrics.Tries = GameSettings.DefaultTries;
-            TriesUI.SetText("Tries: " + GameMetrics.Tries);
-            GameMetrics.Word = Data[GameMetrics.IndexNow];
-            Debug.Log(GameMetrics.Word);
-            WordController.Restart(GameMetrics.Word.Length);
+            Tries = GameSettings.DefaultTries;
+            TriesUI.SetText("Tries: " + Tries);
+            Word = GameMetrics.Data[IndexNow];
+            WordController.Restart(Word.Length);
+            
+            Debug.Log(Word);
         }
         
         private void OnClickAnyKey(KeyCode key, bool isClick)
@@ -72,19 +71,20 @@ namespace Model.Level
             if (!isClick)
                 return;
 
+            //check valid key
             string k = key.ToString();
-            
-            if (!GameMetrics.ValidKeys.Contains(k) || GameMetrics.UseKeys.Contains(k))
+            if (!GameMetrics.CheckValidKey(k))
                 return;
-            GameMetrics.UseKeys += k;
+            
             ClickKey_Action?.Invoke(key, false);
 
-            if (!GameMetrics.Word.Contains(k))
+            //check on error's
+            if (!Word.Contains(k))
             {
-                GameMetrics.Tries--;
-                TriesUI.SetText("Tries: " + GameMetrics.Tries);
+                Tries--;
+                TriesUI.SetText("Tries: " + Tries);
 
-                if (GameMetrics.Tries <= 0)
+                if (Tries <= 0)
                 {
                     ModelController.Restart(GameTypes.Menu.GameOver);
                     return;
@@ -92,25 +92,42 @@ namespace Model.Level
                 return;
             }
 
-            for (int x = 0; x < Data[GameMetrics.IndexNow].Length; x++)
-            {
-                if (Data[GameMetrics.IndexNow][x] == k[0])
-                {
-                    WordController.SetVisible(x, k);
-                }
-            }
+            //update word in dream field
+            WordController.SetVisible(IndexNow, k);
+            Word = Word.Replace(k, "");
+            Debug.Log(Word);
 
-            GameMetrics.Word = GameMetrics.Word.Replace(k, "");
-            Debug.Log(GameMetrics.Word);
-
-            if (GameMetrics.Word.Length == 0)
+            //if the word is guessed
+            if (Word.Length == 0)
             {
-                ModelController.Restart(GameMetrics.SetNextTurn(Data, GameSettings) ?
+                ModelController.Restart(SetNextTurn(GameMetrics.Data, GameSettings) ?
                     GameTypes.Menu.EndGame : GameTypes.Menu.EndLevel);
 
-                ScoreController.Score += GameMetrics.Tries;
+                ScoreController.Score += Tries;
                 return;
             }
+        }
+        
+        private bool SetNextTurn(string[] data, GameSettings gameSettings)
+        {
+            for (int x = IndexNow; x < data.Length;)
+            {
+                x++;
+                
+                if (x >= IndexEnd)
+                    return true;
+
+                if (data[x].Length >= gameSettings.MinWordLength)
+                {
+                    IndexNow = x;
+                    return false;
+                }
+                
+                if (x + 1 == data.Length)
+                    x = -1;
+            }
+
+            return false;
         }
     }
 }

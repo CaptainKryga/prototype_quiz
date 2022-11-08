@@ -4,29 +4,24 @@ namespace Model.Static
 {
     public static class GameMetrics
     {
-        public static int IndexNow, IndexEnd, Tries;
-        public static string ValidKeys = "QWERTYUIOPASDFGHJKLZXCVBNM", UseKeys, Word;
-        
-        public static bool SetNextTurn(string[] data, GameSettings gameSettings)
-        {
-            for (int x = IndexNow; x < data.Length;)
-            {
-                x++;
-                
-                if (x >= IndexEnd)
-                    return true;
+        public static string[] Data;
+        private static string ValidKeys = "QWERTYUIOPASDFGHJKLZXCVBNM";
+        private static string UseKeys;
 
-                if (data[x].Length >= gameSettings.MinWordLength)
-                {
-                    IndexNow = x;
-                    return false;
-                }
-                
-                if (x + 1 == data.Length)
-                    x = -1;
+        public static bool CheckValidKey(string key)
+        {
+            if (!ValidKeys.Contains(key) || UseKeys.Contains(key))
+            {
+                return false;
             }
 
-            return false;
+            UseKeys += key;
+            return true;
+        }
+
+        public static void Restart()
+        {
+            UseKeys = "";
         }
     }
 }

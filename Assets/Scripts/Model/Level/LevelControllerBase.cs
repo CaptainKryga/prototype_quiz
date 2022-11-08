@@ -15,13 +15,13 @@ namespace Model.Level
         [SerializeField] protected CustomInputBase CustomInput;
         [SerializeField] protected WordController WordController;
         
-        protected string[] Data;
+        public static int IndexNow, IndexEnd, Tries;
+        public static string Word;
 
         //key, isClick
         public Action<KeyCode, bool> ClickKey_Action;
 
-        public abstract void Setup(ModelController modelController, string[] data,
-            GameSettings gameSettings);
+        public abstract void Setup(ModelController modelController, GameSettings gameSettings);
         public abstract void Restart(bool isRestart);
     }
 }

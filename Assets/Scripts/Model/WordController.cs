@@ -1,5 +1,6 @@
 using System;
 using Model.Components;
+using Model.Static;
 using UnityEngine;
 
 namespace Model
@@ -31,9 +32,17 @@ namespace Model
             }
         }
 
-        public void SetVisible(int index, string word)
+        public void SetVisible(int indexNow, string word)
         {
-            ((CellField)_word[index]).Setup(word);
+            for (int x = 0; x < GameMetrics.Data[indexNow].Length; x++)
+            {
+                if (GameMetrics.Data[indexNow][x] == word[0])
+                {
+                    ((CellField)_word[x]).Setup(word);
+                }
+            }
         }
+        
+        
     }
 }

@@ -1,6 +1,6 @@
-﻿using System;
-using Model.File;
+﻿using Model.File;
 using Model.Level;
+using Model.Static;
 using Scriptable;
 using UnityEngine;
 using Utils;
@@ -19,8 +19,8 @@ namespace Model
         
         public void Setup()
         {
-            _levelControllerBase.Setup(this, _parser.GetData(_gameSettings.PathInputFile), 
-                _gameSettings);
+            GameMetrics.Data = _parser.GetData(_gameSettings.PathInputFile);
+            _levelControllerBase.Setup(this, _gameSettings);
         }
 
         public void Restart(GameTypes.Menu type)
