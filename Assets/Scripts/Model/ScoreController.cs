@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
-using View.Game;
+using View.Game.UpdateText;
 
 namespace Model
 {
     public class ScoreController: MonoBehaviour
     {
-        [SerializeField] private ScoreUI _scoreUI;
+        [SerializeField] private UpdateTextUI _scoreUI;
 
         private int _score;
 
@@ -15,7 +15,7 @@ namespace Model
             set
             {
                 _score = value;
-                _scoreUI.SetScore(_score);
+                _scoreUI.SetText("Score: " + _score);
             }
         }
     }
