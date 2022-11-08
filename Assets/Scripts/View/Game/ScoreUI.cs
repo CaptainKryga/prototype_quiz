@@ -5,11 +5,14 @@ namespace View.Game
 {
     public class ScoreUI : MonoBehaviour
     {
-        [SerializeField] private TMP_Text _textScore;
+        [SerializeField] private TMP_Text[] _textScores;
 
         public void SetScore(int score)
         {
-            _textScore.text = "Score: " + score.ToString();
+            foreach (var text in _textScores)
+            {
+                text.text = "Score: " + score.ToString();
+            }
         }
     }
 }

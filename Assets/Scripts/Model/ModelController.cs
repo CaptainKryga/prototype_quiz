@@ -1,4 +1,5 @@
-﻿using Scriptable;
+﻿using Model.Level;
+using Scriptable;
 using UnityEngine;
 
 namespace Model
@@ -8,10 +9,11 @@ namespace Model
         [SerializeField] private GameSettings _gameSettings;
         
         [SerializeField] private ParserFile _parser;
+        [SerializeField] private LevelControllerBase _levelControllerBase;
+        
         public void Setup()
         {
-            string[] f = _parser.GetData(_gameSettings.PathInputFile);
-            Debug.Log(f.Length);
+            _levelControllerBase.Setup(_parser.GetData(_gameSettings.PathInputFile), _gameSettings);
         }
     }
 }
