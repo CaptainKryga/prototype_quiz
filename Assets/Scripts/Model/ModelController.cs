@@ -13,7 +13,7 @@ namespace Model
         
         public void Setup()
         {
-            _levelControllerBase.Setup(_parser.GetData(_gameSettings.PathInputFile), _gameSettings);
+            _levelControllerBase.Setup(this, _parser.GetData(_gameSettings.PathInputFile), _gameSettings);
         }
     }
 }
